@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{%load static%}
+{%block header%}About Us{%endblock%}
+{% block content %}
+  
+<div class="row">
+    <div class="col-md-12 mt-5 mb-2">
+        <h4>About us</h4>
+    </div>
+    <div class="col-md-7">
+        <img src="{% static 'images/4.jpg' %}" height="350px" alt="" srcset="">
+    </div>
+    <div class="col-md-5">
+        <h5>title</h5>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero veritatis, esse consectetur impedit repudiandae placeat inventore aliquam, aspernatur aperiam illum eius. Dolore, minima. Consequuntur adipisci aperiam consectetur explicabo voluptatibus maxime omnis delectus neque quam beatae fugiat, ipsam ratione repellendus numquam?</p>
+    </div>
+</div>
+
+{% endblock content %}

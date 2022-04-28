@@ -1,0 +1,48 @@
+{%extends 'index.html'%}
+{%load static%}
+{%block header%}Register{%endblock%}
+{%block content%}
+
+        <div class="container h-100 border rounded ">
+            <h4 class="text-muted mt-4 mx-3 text-decoration-underline">Registeration Form</h4>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row py-3 px-4">
+                    <div class="col-md-6 p-2">
+                        {{form.first_name.label}}<br>
+                        {{form.first_name}}
+                    </div>
+                    <div class="col-md-6 p-2">
+                        {{form.last_name.label}}<br>
+                        {{form.last_name}}
+                    </div>
+                    <div class="col-md-6 p-2 " id="regform">
+                        {{form.username.label}}<br>
+                        {{form.username}}       
+                        <span>{{form.username.help_text}}</span>
+                    </div>
+                    <div class="col-md-6 p-2">
+                        {{form.email.label}}<br>
+                        {{form.email}}
+                    </div>
+                    <div class="col-md-12 p-2" id="regform">
+                        {{form.password1.label}}<br>
+                        {{form.password1}}
+                        <span> {{form.password1.help_text}}</span>
+                    </div>
+                    <div class="col-md-12 p-2" id="regform">
+                        {{form.password2.label}}<br>
+                        {{form.password2}}
+                        <span>{{form.password2.help_text}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto mx-4 ">
+                        <button type="submit" class="btn btn-primary align-content-center">Signup</button><br>
+                        <p class="text-muted mt-2">Already have an account? <a href="{% url 'login' %}">Login</a> instead.</p>                
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+{%endblock%}

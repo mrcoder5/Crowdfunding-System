@@ -1,0 +1,142 @@
+{%extends 'index.html'%}
+{%load static%}
+{%block header%}Home{%endblock%}
+{%block content%}
+  <div class="container bg-light">
+
+      <!-- new / important donation -->
+      <div class="row mt-3">
+            <div class="col-md-12 bgcustom-image top-section  ">
+              <h3>title </h3>
+              <p class="medium">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores sed ducimus animi
+                praesentium dolorem accusamus at esse libero alias sapiente.</p>
+              <button class="btn btn-success">Donate</button>
+            </div>
+      </div>
+
+
+      <!-- top 3 donors -->
+      <div class="row mt-5">
+        
+        <h2 class="mb-3">Top Donors</h2><br>
+          <table class="table" id="topdonors">
+            <tr id="golddonor" class="rounded">
+              <th style="width: 15%;">1st</td>
+              <td style="width: 60%;">name</td> 
+              <td style="width: 25%;">amount</td>
+            </tr>
+            <tr id="silverdonor">
+              <th>2nd</td>
+              <td>name</td>
+              <td>amount</td> 
+            </tr>
+            <tr id="bronzedonor">
+              <th>3rd</td>
+              <td>name</td> 
+              <td>amount</td> 
+            </tr>
+            </table>
+      </div>      
+
+
+      <!-- ongoing donations -->
+      <div class="row mt-5">
+              <h2 class="mb-3">ongoing donations</h2><br>
+              
+              {% if ad%}
+                {% for i in ad%}
+                    <div class=" col-md-4 my-2">
+                        <div class="card">
+                            <img class="card-img-top" src="{% static '/images/4.jpg' %}" alt="Card image">
+                            <div class="card-body">
+                                <h4 class="card-title">{{i.donation_title}}</h4>
+                                <p class="card-text">{{ i.donation_description }}</p>
+                                <div class="progress" style="height: 5px;">
+                                    <div class="progress-bar bg-info pb-2" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span id="raised">Rs. {{i.recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.required_amount}}</span><br>
+                                <a href="#" class="btn btn-primary">Donate</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {%else%}
+                    No data found
+            {% endif %}
+              
+
+            
+      </div>
+      <!-- why Donate -->
+      <div class="row mt-5">
+                  <h2>why Donate?</h2><br>
+                  <p class="px-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut atque ab beatae recusandae voluptate 
+                      nihil dolores aliquam reprehenderit accusantium iste consequuntur itaque unde quis sapiente 
+                      dolorum quo, at dignissimos repellendus inventore libero fugiat? Harum assumenda, consectetur 
+                      accusamus, dolore necessitatibus deleniti delectus quae facere officiis ut minus reprehenderit 
+                      sint facilis quod, quisquam exercitationem eveniet doloremque dicta aspernatur iste quidem 
+                      dolorem nobis voluptas? Ipsam dolor doloremque iusto, porro nostrum non ipsa iure, dolorem 
+                      repellendus ea ad quos fugit, voluptatibus natus consectetur doloribus voluptatum harum quam 
+                      taque perspiciatis! Incidunt, similique placeat? Itaque accusantium provident nostrum recusandae 
+                      explicabo non dolore beatae eos hic ab, et ratione quisquam dolor perspiciatis, eum sequi 
+                      blanditiis odio fugit enim. Molestiae ipsum veritatis pariatur quia praesentium harum explicabo
+                      modi maiores, porro sequi natus assumenda, earum nulla iusto accusamus! Architecto voluptate 
+                      iusto sint accusantium quae voluptates deserunt quam pariatur numquam nemo! Dolore quam 
+                      provident voluptatum odit ullam accusantium aperiam. In velit labore necessitatibus quae 
+                      distinctio, molestiae ut quaerat corrupti nobis eum! Quas exercitationem repudiandae 
+                      perspiciatisnemo velit, ab est nobis, molestias reprehenderit incidunt dicta voluptate 
+                      ipsum optio, culpa quos sequi nihil illum dolorum officiis neque explicabo. Atque, fugiat 
+                      temporibus blanditiis molestiae laboriosam quo error suscipit impedit quam amet, eum commodi.</p>
+      </div>
+
+      <!-- how to Donate -->
+      <div class="row mt-5">
+              <h2>how to Donate</h2><br>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut atque ab beatae recusandae voluptate 
+                  nihil dolores aliquam reprehenderit accusantium iste consequuntur itaque unde quis sapiente 
+                  dolorum quo, at dignissimos repellendus inventore libero fugiat? Harum assumenda, consectetur 
+                  accusamus, dolore necessitatibus deleniti delectus quae facere officiis ut minus reprehenderit 
+                  sint facilis quod, quisquam exercitationem eveniet doloremque dicta aspernatur iste quidem 
+                  dolorem nobis voluptas? Ipsam dolor doloremque iusto, porro nostrum non ipsa iure, dolorem 
+                  repellendus ea ad quos fugit, voluptatibus natus consectetur doloribus voluptatum harum quam 
+                  taque perspiciatis! Incidunt, similique placeat? Itaque accusantium provident nostrum recusandae 
+                  explicabo non dolore beatae eos hic ab, et ratione quisquam dolor perspiciatis, eum sequi 
+                  blanditiis odio fugit enim. Molestiae ipsum veritatis pariatur quia praesentium harum explicabo
+                  modi maiores, porro sequi natus assumenda, earum nulla iusto accusamus! Architecto voluptate 
+                  iusto sint accusantium quae voluptates deserunt quam pariatur numquam nemo! Dolore quam 
+                  provident voluptatum odit ullam accusantium aperiam. In velit labore necessitatibus quae 
+                  distinctio, molestiae ut quaerat corrupti nobis eum! Quas exercitationem repudiandae 
+                  perspiciatisnemo velit, ab est nobis, molestias reprehenderit incidunt dicta voluptate 
+                  ipsum optio, culpa quos sequi nihil illum dolorum officiis neque explicabo. Atque, fugiat 
+                  temporibus blanditiis molestiae laboriosam quo error suscipit impedit quam amet, eum commodi.</p>
+      </div>
+
+      <!-- successfull stories -->
+      <div class="row mt-5">
+              <h2>success stories</h2><br>
+
+              {% if sd%}
+                {% for i in sd%}
+                    <div class=" col-md-4 my-2">
+                        <div class="card">
+                            <img class="card-img-top" src="{% static '/images/4.jpg' %}" alt="Card image">
+                            <div class="card-body">
+                                <h4 class="card-title">{{i.donation_title}}</h4>
+                                <p class="card-text">{{ i.donation_description }}</p>
+                                <span id="raised">Rs. {{i.recieved_amount}}</span> <br>
+                                <a href="#" class="btn btn-primary">Donate</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {%else%}
+                    No data found
+            {% endif %}
+              
+
+          
+      </div>  
+
+
+  </div>      
+{%endblock content%}
