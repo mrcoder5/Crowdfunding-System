@@ -52,9 +52,9 @@
                                 <h4 class="card-title">{{i.donation_title}}</h4>
                                 <p class="card-text">{{ i.donation_description }}</p>
                                 <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-info pb-2" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span id="raised">Rs. {{i.recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.required_amount}}</span><br>
+                                    <div class="progress-bar bg-info pb-2" role="progressbar" style="width: {{i.progress}}%" aria-valuenow="{{i.progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div><p>{{i.pp}}</p>
+                                <span id="raised">Rs. {{i.recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.required_amount}}</span><br> 
                                 <a href="#" class="btn btn-primary">Donate</a>
                             </div>
                         </div>
@@ -116,15 +116,15 @@
               <h2>success stories</h2><br>
 
               {% if sd%}
-                {% for i in sd%}
+                {% for i in sd%}           
                     <div class=" col-md-4 my-2">
                         <div class="card">
                             <img class="card-img-top" src="{% static '/images/4.jpg' %}" alt="Card image">
                             <div class="card-body">
                                 <h4 class="card-title">{{i.donation_title}}</h4>
-                                <p class="card-text">{{ i.donation_description }}</p>
+                                <p class="card-text">{{ i.donation_description}}</p>
                                 <span id="raised">Rs. {{i.recieved_amount}}</span> <br>
-                                <a href="#" class="btn btn-primary">Donate</a>
+                                {% comment %} <a href="#" class="btn btn-primary">Donate</a> {% endcomment %}
                             </div>
                         </div>
                     </div>

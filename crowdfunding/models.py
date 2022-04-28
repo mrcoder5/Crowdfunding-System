@@ -1,4 +1,9 @@
+from cgitb import html
+from django.utils import timezone
+
 from django.db import models
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 
@@ -20,15 +25,35 @@ class Donation(models.Model):
     purpose=models.CharField(max_length=50)
     required_amount=models.IntegerField(default=0)
     recieved_amount=models.IntegerField(default=0)
+    date_and_time=models.DateTimeField(default=timezone.now)
 
+    
+    def progress(self):
+        pp=self.recieved_amount / self.required_amount *100
+        return pp
+        
    
 class feedbacks(models.Model):
     fu_name=models.CharField(max_length=50)
     fu_email=models.EmailField( max_length=254)
     fu_message=models.CharField( max_length=300)
+    date_and_time=models.DateTimeField(default=timezone.now)
 
 
-# class Supporters(models.Model):
-#     user_fullname=models.ForeignKey(Users,verbose_name=("Registered user name"), on_delete=models.CASCADE)
-#     user_age=models.ForeignKey(Users, verbose_name=("users age"), on_delete=models.CASCADE)
+class transactions(models.Model):
+    did=models.IntegerField()
+    uid=models.IntegerField()
+    amount=models.IntegerField(blank=True,null=True)
+    date_and_time=models.DateTimeField(default=timezone.now)
+    
+
+
+class topdonors(models.Model):
+    did=models.IntegerField()
+    uid=models.IntegerField()
+    total_amount=models.IntegerField(null=True)
+    updated=models.DateTimeField(default=timezone.now)
+
+
+
 

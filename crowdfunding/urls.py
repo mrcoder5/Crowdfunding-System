@@ -13,6 +13,6 @@ urlpatterns = [
     path('login',views.login_form,name='login'),
     path('register',views.register_user,name='register'),
     path('success-stories',views.success_stories,name="success-stories"),
-    path('fullpost',views.fullpost,name='fullpost'),
-    path('logout',views.logout_user,name='logout')
+    path('logout',views.logout_user,name='logout'),
+    path('donation/<int:id>/',views.donations_details,name='fullpost'),
 ]

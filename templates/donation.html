@@ -19,7 +19,7 @@
                                 <h4 class="card-title">{{i.donation_title}}</h4>
                                 <p class="card-text">{{ i.donation_description }}</p>
                                 <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-info pb-2" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-info pb-2" role="progressbar" style="width: {{i.progress}}%" aria-valuenow="{{i.progress}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span id="raised">Rs. {{i.recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.required_amount}}</span><br>
                                 <a href="#" class="btn btn-primary">Donate</a>

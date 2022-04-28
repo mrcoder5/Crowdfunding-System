@@ -3,19 +3,14 @@
 {% block header %}full post title{% endblock header %}
 {% block content %}
     <div class="row">
-        <h3>title</h3>
+        <h3>{{inf.donation_title}}</h3>
     </div>
     <div class="row mt-2">
         <div class="col-md-6">
             <img src="{%static '/images/4.jpg'%}" alt="thumbnail" class="" width="100%" height="auto">
         </div>
         <div class="col-md-6 mt-2">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, vero!
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint, ad? Vel laboriosam earum nulla dolor.
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint, ad? Vel laboriosam earum nulla dolor.
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint, ad? Vel laboriosam earum nulla dolor.
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint, ad? Vel laboriosam earum nulla dolor.
-            </p>
+            <p>{{inf.donation_description}}            </p>
             <span>
                 <a href="" class="justify-content-center btn btn-success py-2 px-4">Donate</a>
             </span>
@@ -51,26 +46,26 @@
     <!-- ongoing donations only -->
     <div class="row mt-4">
         <h5 class=" mb-3">See More</h5>
-        {% if inf%}
-                {% for i in inf%}
-                    <div class=" col-md-4">
-                        <div class="card">
-                            <img class="card-img-top" src="{% static '/images/4.jpg' %}" alt="Card image">
-                            <div class="card-body">
-                            <h4 class="card-title">{{i.donation_title}}</h4>
-                            <p class="card-text">{{ i.donation_description }}</p>
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-info pb-2" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <span id="raised">Rs. {{i.recipient_recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.recipient_required_amount}}</span><br>
-                            <a href="#" class="btn btn-primary">Donate</a>
-                            </div>
+        {% if ob%}
+            {% for i in ob%}
+                <div class=" col-md-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{% static '/images/4.jpg' %}" alt="Card image">
+                        <div class="card-body">
+                        <h4 class="card-title">{{i.donation_title}}</h4>
+                        <p class="card-text">{{ i.donation_description }}</p>
+                        <div class="progress" style="height: 5px;">
+                            <div class="progress-bar bg-info pb-2" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span id="raised">Rs. {{i.recipient_recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.recipient_required_amount}}</span><br>
+                        <a href="#" class="btn btn-primary">Donate</a>
                         </div>
                     </div>
-                {% endfor %}
-            {%else%}
-                    No data found
-            {% endif %}
+                </div>
+            {% endfor %}
+        {%else%}
+                No data found
+        {% endif %}
     </div>
 
 {% endblock content %}
