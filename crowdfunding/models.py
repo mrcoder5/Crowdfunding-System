@@ -1,4 +1,4 @@
-from cgitb import html
+from email.mime import image
 from django.utils import timezone
 
 from django.db import models
@@ -21,11 +21,13 @@ class Donation(models.Model):
     phone=models.IntegerField()
     address=models.CharField( max_length=500)
     donation_title=models.CharField(max_length=100)
+    slugs=models.SlugField(max_length=150,unique=True,null=True)
     donation_description=models.CharField(max_length=500)
     purpose=models.CharField(max_length=50)
     required_amount=models.IntegerField(default=0)
     recieved_amount=models.IntegerField(default=0)
     date_and_time=models.DateTimeField(default=timezone.now)
+    image=models.ImageField(upload_to='images',null=True)
 
     
     def progress(self):

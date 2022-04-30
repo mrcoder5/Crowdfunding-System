@@ -1,4 +1,6 @@
 from asyncio.windows_events import NULL
+from pickle import TRUE
+from django import views
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from crowdfunding.models import Donation,  feedbacks
@@ -9,6 +11,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
+# about page
 def about_page(request):
     if User.is_authenticated:
         uinf=userinfo(request)
@@ -16,6 +20,8 @@ def about_page(request):
 
     return render(request,'about.html',{'uname':uid})
 
+
+# contact page
 def contact_page(request):
     uid=userinfo(request).username
     if request.method=="POST":
@@ -29,17 +35,22 @@ def contact_page(request):
 
     return render(request,'contact.html',{'uname':uid})
 
+
+# all donations
 def donate_now_page(request):
     aprv_data=adata(request)
     uid=userinfo(request).username
 
     return render(request,'donation.html',{'ad':aprv_data,'uname':uid})
 
+# success stories
 def success_stories(request):
     s_data=Donation.objects.filter(donation_status='s')
     uid=userinfo(request).username
     return render(request,'success_stories.html',{'sd':s_data,'uname':uid})
 
+
+#req donation
 def req_donation_page(request):
     if request.method=='POST':
         fname=request.POST['full_name']
@@ -51,7 +62,8 @@ def req_donation_page(request):
         purpose=request.POST['purpose']
         amount=request.POST['donation_ammount']
         # thumbnail=request.POST['donation_image']
-        post=Donation(full_name=fname,email=email,phone=mob,address=address,donation_title=title,donation_description=desc,purpose=purpose,required_amount=amount)
+        image=request.POST['donation_image']
+        post=Donation(full_name=fname,email=email,phone=mob,address=address,donation_title=title,donation_description=desc,purpose=purpose,required_amount=amount,image=image)
         post.save()
         return redirect('req-donation')
 
@@ -60,15 +72,9 @@ def req_donation_page(request):
 
     return render(request,'req_donation.html',{'uname':uid})
 
-def donation_post_page(request):
-    uid=userinfo(request).username
 
-    return render(request,'full-post.html',{'uname':uid})
-
+#login
 def login_form(request):
-    # if User.is_authenticated:
-    #     return redirect('home')
-    # else:
     if request.method=='POST':
         uname=request.POST['email']
         passw=request.POST['password']
@@ -76,10 +82,13 @@ def login_form(request):
         if user is not None:
             login(request,user)
             uname=user.get_username
-            return render(request,'home.html',{'uname':uname})
+            return redirect('home')
+    if request.user.is_authenticated==TRUE:
+        return redirect('home')
+    else:
+        return render(request,'login.html')
 
-    return render(request,'login.html')
-
+#register 
 def register_user(request):
 
     if request.method == 'POST':
@@ -123,7 +132,11 @@ def userinfo(request):
         return(userinf)
 
 def donations_details(request,id):
-    data=Donation.objects.get(id=5)
+    data=Donation.objects.get(id=id)
     others=Donation.objects.filter(donation_status='a')
     uid=userinfo(request).username
     return render(request,'fullpost.html',{'ob':others,'inf':data,'uname':uid})
+
+
+
+    

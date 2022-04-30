@@ -6,7 +6,8 @@ urlpatterns = [
     path('about',views.about_page, name='about'),
     path('contact',views.contact_page,name='contact'),
     path('donates',views.donate_now_page, name='donates'),
-    path('full-donation',views.donation_post_page),
+    path('full-donation/<id>',views.donations_details,name="full-donation"),
+    
     path('',views.home_page),
     path('home',views.home_page, name='home'),
     path('req-donation',views.req_donation_page, name='req-donation'),
