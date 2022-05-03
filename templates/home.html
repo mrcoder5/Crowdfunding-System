@@ -4,6 +4,20 @@
 {%block content%}
   <div class="container bg-light">
 
+
+      <!-- messages -->
+      {% if messages %}
+        <div class="row">
+          <div class="toast align-items-center text-white bg-primary border-0" role="alert" data-bs-autohide=false aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div class="toast-body">
+                Hello, world! This is a toast message.
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      {% endif %}
       <!-- new / important donation -->
       <div class="row mt-3">
             <div class="col-md-12 bgcustom-image top-section  ">
@@ -13,6 +27,9 @@
               <button class="btn btn-success">Donate</button>
             </div>
       </div>
+
+      
+
 
 
       <!-- top 3 donors -->
@@ -35,7 +52,7 @@
               <td>name</td> 
               <td>amount</td> 
             </tr>
-            </table>
+            </table>    
       </div>      
 
 
@@ -55,7 +72,7 @@
                                     <div class="progress-bar bg-info pb-2" role="progressbar" style="width: {{i.progress}}%" aria-valuenow="{{i.progress}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div><p>{{i.pp}}</p>
                                 <span id="raised">Rs. {{i.recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.required_amount}}</span><br> 
-                                <a href="#" class="btn btn-primary">Donate</a>
+                                <a href="{% url 'full-donation' i.slugs %}" class="btn btn-primary">Donate</a>
                             </div>
                         </div>
                     </div>

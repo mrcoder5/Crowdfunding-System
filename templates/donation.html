@@ -3,7 +3,17 @@
 {%block header%}Donate{%endblock%}
 {% block content %}
 
-        
+              <!-- messages -->
+        {% if messages %}
+                <div class="toast align-items-center text-white bg-primary border-0" role="alert" data-bs-autohide=false aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                        Hello, world! This is a toast message.
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+        {% endif %}
         <div class="row">
             <div class="col-md-12 mt-5">
                 <h4>Donate Now</h4>
@@ -22,7 +32,7 @@
                                     <div class="progress-bar bg-info pb-2" role="progressbar" style="width: {{i.progress}}%" aria-valuenow="{{i.progress}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span id="raised">Rs. {{i.recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.required_amount}}</span><br>
-                                <a href="{% url 'full-donation' i.id %}" class="btn btn-primary">Donate</a>
+                                <a href="{% url 'full-donation' i.slugs %}" class="btn btn-primary">Donate</a>
                             </div>
                         </div>
                     </div>

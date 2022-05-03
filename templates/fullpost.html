@@ -2,42 +2,105 @@
 {% load static %}
 {% block header %}full post title{% endblock header %}
 {% block content %}
-    <div class="row">
-        <h3>{{inf.donation_title}}</h3>
+    <div class="row mt-5">
+        <h4>{{inf.donation_title}}</h4>
     </div>
     <div class="row mt-2">
         <div class="col-md-6">
             <img src="{%static '/images/4.jpg'%}" alt="thumbnail" class="" width="100%" height="auto">
         </div>
-        <div class="col-md-6 mt-2">
-            <p>{{inf.donation_description}}            </p>
-            <span>
-                <a href="" class="justify-content-center btn btn-success py-2 px-4">Donate</a>
-            </span>
+        <div class="col-md-6 mt-3">
+            <h5 class="mx-3">Contirbutors</h5>
+            <table class="table mx-3">
+                <tbody class="text-muted">
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry </td>
+                    <td>Page</td>
+                  </tr>
+                </tbody>
+              </table>
         </div>
     </div>
 
-    <div class="row mt-5">
-        <h5 class="">Contirbutors</h5>
-        <table class="table mx-3">
-            <tbody class="text-muted">
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry </td>
-                <td>Page</td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <p>{{inf.donation_description}}</p>
+        </div>
+        <div class="col-md-6">
+            <p><button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Donate</button></p>
+            <div class="collapse border rounded" id="collapseExample">
+                <div class="card card-body">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {%if user.is_authenticated%}
+                            <div class="px-5 pt-5">
+                                <p class="h4">Your Details</p>
+                                <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
+
+                                <div class="row">
+                                    
+                                    <div class="col-md-2">
+                                        <div class="mt-2 "><i class="fa fa-user mx-1" id="nav" aria-hidden="true"></i></div>
+                                        <div class="mt-2 ">Name</div>
+                                        <div class="mt-2">Email</div>
+                                    </div>
+                                    <div class="col-md-8 ">
+                                        <div class="mt-2 border-bottom">{{uname.username}}</div>
+                                        <div class="mt-2 border-bottom">{{request.user.get_full_name}}</div>
+                                        <div class="mt-2 border-bottom">{{uname.email}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        {%else%}
+                            <div class="px-5 pt-5">
+                                <p class="h5">Enter Your Personal Details</p>
+                                <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
+                                <div>
+                                    <label for="fullname" class="form-label">Name</label>
+                                    <input type="text" name="fullname" id="name" class="form-control" required>
+                                </div>
+                                <div>
+                                    <label for="phone" class="form-label ">Phone</label>
+                                    <input type="text" name="phone" id="phone" class="form-control" required>
+                                </div>
+                                <div>
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" name="address" id="address" class="form-control" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="form-label ">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control " required>
+                                </div>
+                            </div>
+                        {%endif%}
+    
+                        <div class="px-5 pb-5">
+                            <div class="">
+                                <label for="amount" class="form-label" >Amount</label>
+                                <input type="number" name="amount" max="{{inf.max_rec_amt}}"  class="form-control" id="amount" required>
+                                <small class="text-muted">maximum donation amount={{inf.max_rec_amt}}</small>
+                            </div>
+                            <div class="">
+                                <input type="submit" value="Pay" class="btn btn-success px-5 mt-4">
+                            </div>
+                            <input type="hidden" name="donation-id" value="{{inf.id}}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
