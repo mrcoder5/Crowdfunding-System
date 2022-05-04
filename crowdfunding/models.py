@@ -1,5 +1,6 @@
 
 from multiprocessing import set_forkserver_preload
+from typing import Iterable
 from django.utils import timezone
 
 from django.db import models
@@ -41,7 +42,7 @@ class Donation(models.Model):
     def if_success(self):
         if self.donation_status=='a':
             if self.recieved_amount==self.required_amount:
-                self.status='s'
+                self.donation_status='s'
                 return self.status
 
 

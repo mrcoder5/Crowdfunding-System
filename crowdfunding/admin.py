@@ -1,6 +1,8 @@
 from django.contrib import admin
 from crowdfunding.models import Donation, feedbacks, public_donors, topdonors, transactions
 # Register your models here.
+admin.site.site_header="CROWD FUNDING"
+
 @admin.register(Donation)
 class DonationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slugs": ("donation_title",)}

@@ -13,12 +13,12 @@ body{
 }
 .top-section{
     height: 80vh;
-    padding: 50px 100px;
+    padding: 50px 100px 50px 100px;
     color:whitesmoke;
-    width: 100vw;
-    display: flexbox;
-    justify-content: center;
-    align-items: baseline;  
+    width: 100vw; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 label{

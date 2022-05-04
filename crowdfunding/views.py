@@ -150,22 +150,27 @@ def donations_details(request,slugs):
             did=request.POST['donation-id']
             amount=int(request.POST['amount'])
             uuid=request.user.id
-            
 
             update_amt_donation=Donation.objects.filter(id=did).get()
             update_amt_donation.recieved_amount=int(update_amt_donation.recieved_amount)+int(amount)
             update_amt_donation.save()
-
+            update_amt_status=Donation.objects.filter(id=did).get()
+            try:
+                res=update_amt_status.if_success()
+                update_amt_status.save()
+                print(res)
+            except:
+                print('failed to run status function')
 
             try:
                 obj=topdonors.objects.filter(uid=uuid).get()
                 obj.total_amount=obj.total_amount+amount
                 obj.save()
             except :
-                add_contribution=topdonors(uid=uid,status='user',total_amount=amount)
+                add_contribution=topdonors(uid=uuid,status='user',total_amount=amount)
                 add_contribution.save()
 
-            post_transaction=transactions(did=did,uid=uid,amount=amount)
+            post_transaction=transactions(did=did,uid=uuid,amount=amount)
             post_transaction.save()
         else:
             did=request.POST['donation-id']
@@ -179,10 +184,14 @@ def donations_details(request,slugs):
             update_amt_donation=Donation.objects.filter(id=did).get()
             update_amt_donation.recieved_amount=int(update_amt_donation.recieved_amount)+int(amount)
             update_amt_donation.save()
-            update_amt_donation=Donation.objects.filter(id=did).get()
-            res=update_amt_donation.if_success()
-            print(res)
-            update_amt_donation.save()
+            update_amt_status=Donation.objects.filter(id=did).get()
+            try:
+                res=update_amt_status.if_success()
+                update_amt_status.save()
+                print(res)
+            except:
+                print('failed to run status function')
+
             try:
                 obj=public_donors.objects.filter(email=emails).get() 
                 print(obj.id,'obj id public donor') 
