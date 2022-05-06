@@ -15,6 +15,7 @@ urlpatterns = [
     path('success-stories',views.success_stories,name="success-stories"),
     path('logout',views.logout_user,name='logout'),
 
-    path('full-donation/<slug:slugs>',views.donations_details,name="full-donation"),
+    path('full-donation/<slug:slugs>/<int:id>',views.donations_details,name="full-donation"),
+    path('profile',views.profile,name='profile'),
 
 ]

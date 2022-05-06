@@ -32,7 +32,7 @@
                     
                     {% if user.is_authenticated %}
                     
-                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'home' %}"><i class="fa fa-user mx-1" id="nav" aria-hidden="true"></i>{{uname}}</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'profile' %}"><i class="fa fa-user mx-1" id="nav" aria-hidden="true"></i>{{request.user}}</a></li>
                     <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                     <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'login' %}">Login</a></li>

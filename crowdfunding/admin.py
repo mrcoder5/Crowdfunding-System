@@ -1,5 +1,5 @@
 from django.contrib import admin
-from crowdfunding.models import Donation, feedbacks, public_donors, topdonors, transactions
+from crowdfunding.models import Donation, feedbacks, public_donors, topdonors, transactions,pos
 # Register your models here.
 admin.site.site_header="CROWD FUNDING"
 
@@ -20,6 +20,10 @@ class topDonorsAdmin(admin.ModelAdmin):
 class public_DonorAdmin(admin.ModelAdmin):
     list_display=('id','name','email')
 
+class posAdmin(admin.ModelAdmin):
+    list_display=('id','tag')
+
+admin.site.register(pos,posAdmin)
 admin.site.register(public_donors,public_DonorAdmin)
 admin.site.register(feedbacks,feedbacksAdmin)
 admin.site.register(transactions,transactionsAdmin)

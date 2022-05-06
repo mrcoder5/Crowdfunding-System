@@ -32,7 +32,7 @@
                                     <div class="progress-bar bg-info pb-2" role="progressbar" style="width: {{i.progress}}%" aria-valuenow="{{i.progress}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span id="raised">Rs. {{i.recieved_amount}}</span> of<span id="total" class="float-right"> Rs. {{i.required_amount}}</span><br>
-                                <a href="{% url 'full-donation' i.slugs %}" class="btn btn-primary">Donate</a>
+                                <a href="{% url 'full-donation' i.slugs i.id%}" class="btn btn-primary">Donate</a>
                             </div>
                         </div>
                     </div>

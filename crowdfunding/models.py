@@ -1,27 +1,27 @@
 
 from multiprocessing import set_forkserver_preload
+from tkinter import CASCADE
 from typing import Iterable
 from django.utils import timezone
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 
 class Donation(models.Model):
-    status=(
-        ('r','request'),
+    status=[
+        ('r','requested'),
         ('a','approved'),
         ('s','successful'),
         ('x','rejected')
-    )
-
+    ]
+    uid=models.ForeignKey(User, verbose_name="User Id", on_delete=models.CASCADE,null=True)
     donation_status=models.CharField(max_length=1,choices=status,default='r')
-    full_name=models.CharField(max_length=50)
-    email=models.EmailField(max_length=254)
-    phone=models.IntegerField()
-    address=models.CharField( max_length=500)
+    full_name=models.CharField(max_length=50,null=True)
+    email=models.EmailField(max_length=254,null=True)
+    phone=models.IntegerField(null=True)
+    address=models.CharField( max_length=500,null=True)
     donation_title=models.CharField(max_length=100)
     slugs=models.SlugField(max_length=150,unique=True,null=True)
     donation_description=models.CharField(max_length=500)
@@ -63,22 +63,23 @@ class public_donors(models.Model):
 
 
 class transactions(models.Model):
-    did=models.IntegerField()
+    # did=models.IntegerField()
+    did=models.ForeignKey(Donation, on_delete=models.CASCADE,null=True,verbose_name="Donation id")
     uid=models.ForeignKey(User, verbose_name="user id", on_delete=models.DO_NOTHING,null=True)
-    # pid=models.ForeignKey(public_donors, verbose_name="unregistered user id", on_delete=models.DO_NOTHING,null=True)
-    pid=models.IntegerField(default=0)
+    pid=models.ForeignKey(public_donors, verbose_name="unregistered user id", on_delete=models.DO_NOTHING,null=True)
     amount=models.IntegerField(blank=True,null=True)
     date_and_time=models.DateTimeField(default=timezone.now)
-    
 
 class topdonors(models.Model):
     uid=models.ForeignKey(User, verbose_name="user id", on_delete=models.DO_NOTHING ,null=True)
-    # pid=models.ForeignKey(public_donors, verbose_name="unregistered user id", on_delete=models.DO_NOTHING,null=True)
-    pid=models.IntegerField(default=0)
+    pid=models.ForeignKey(public_donors, verbose_name="unregistered user id", on_delete=models.DO_NOTHING,null=True)
     status=models.CharField(max_length=50,null=True)
     total_amount=models.IntegerField(default=0)
     updated=models.DateTimeField(default=timezone.now)
 
 
-
+class pos(models.Model):
+    tag=models.TextField(default='')
+    posno=models.IntegerField()
+    css_class=models.TextField(null=True)
 

@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block header %}Profile{% endblock header %}
+{% block content %}
+
+        <div class="row ">
+            <div class="col-md-8 mt-2">
+
+                <h5 class="text-muted">Contributions</h5>
+                <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
+
+                {% if 'uc' %}
+                <table class="table  text-uppercase small mt-2">
+                    <thead>
+                        <th>Donation Title</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </thead>
+                    <tbody class="">
+                           {% for contrib in uc  %}
+                                <tr>
+                                    <td>{{contrib.did.donation_title}}</td>
+                                    <td>{{contrib.amount}}</td>
+                                    <td>{{contrib.date_and_time}}</td>
+                                </tr>
+                           {% endfor %} 
+                    </tbody>
+                </table>
+                {% endif %}   
+
+                <h5 class="text-muted mt-5">Raising Donation</h5>
+                <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
+                
+                {% if 'rd' %}               
+                <table class="table  text-uppercase small mt-2">
+                    <thead>
+                        <th>Donation Title</th>
+                        <th>Total Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                           {% for r in rd  %}
+                                <tr>
+                                    <td>{{r.donation_title}}</td>
+                                    <td>{{r.required_amount}}</td>
+                                    <td>{{r.date_and_time}}</td>
+                                    <td>{{r.get_donation_status_display}}</td>
+                                </tr>
+                           {% endfor %} 
+                    </tbody>
+                </table>
+                {% endif %}   
+
+            </div>
+            <div class="col-md-4 mt-2">
+                <div class="w-100 d-flex flex-column text-center">
+                    <img src="{%static '/images/4.jpg'%}" alt="" width="100%" srcset="" class="rounded">
+                    <span>{{request.user.first_name}}&nbsp;{{request.user.last_name}}</span>
+                    <small class="text-muted">@{{request.user}}</small>
+                    <!-- <button class="btn btn-primary rounded " type="button" data-bs-toggle="collapse" data-bs-target="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">edit profile</button>   
+                    <div class="collapse border rounded">
+                        <div class="card card-body">
+                            <form action="" method="post">
+                                {% csrf_token %}
+
+                            </form>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div
+        
+{% endblock content %}

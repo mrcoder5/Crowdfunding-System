@@ -40,7 +40,9 @@ label{
     background-color: #0d6efd;
     color: #fff;
 }
-
+.topdonors{
+    background-image: linear-gradient(to left top, #ffd700, #ffcf3f, #ffc85f, #ffc479, #ffc291, #ffbe95, #ffba99, #ffb69e, #feac94, #fea28a, #fd9781, #fc8c78);
+}
 
 .vh-40{
     height: 40vh;
@@ -63,9 +65,21 @@ table tr#bronzedonor{
     background: linear-gradient(36deg, rgba(250,101,149,1) 0%, rgba(249,175,199,1) 100%);
 }
 
+.fix-vh20{
+    height: 35vh;
+}
 
 
-
-
-
+.bg-gold{
+    color:  #FFD700;
+    text-align: center;
+}
+.bg-silver{
+    color:  #cacaca;
+    text-align: center;
+}
+.bg-bronze{
+    color:  #6d4700;
+    text-align: center;
+}
 
