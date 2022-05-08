@@ -8,12 +8,12 @@
     </div>
      <!-- donation image and contributors list -->
     <div class="row mt-2">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <img src="{%static '/images/4.jpg'%}" alt="thumbnail" class="" width="100%" height="auto">
         </div>
 
          <!-- Contirbutors list and top donors list -->
-        <div class="col-md-6 pt-3 topdonors">
+        <div class="col-md-5 pt-3 ">
             {% if clist %}
             <h5 class="mx-3 d-block">Contirbutors</h5>
                 <div class="row fix-vh20">
@@ -53,20 +53,11 @@
                 <h5 class="mx-3 d-block">Top Donors</h5>
                 <div class="mx-3 mt-3">
                     <div class="table-responsive ">
-                        <table class="table table-borderless d-inline">
-                            <tbody>
-                                {% for p in pos  %}
-                                <tr>
-                                    <td class="{{p.css_class}}">{{p.tag| safe}}</td>
-                                </tr>
-                                {% endfor %} 
-                            </tbody>
-                        </table>
-                        <table class="table table-borderless d-inline">
+                        <table class="table">
                             <tbody>
                                 {% for tds in td  %}
-                                    <tr>
-                                        <td>{{tds.uid}}{{tds.pid}}</td>
+                                    <tr class="justify-content-center">
+                                        <td id="pos">{{tds.pos| safe}}</td>
                                         <td>{{tds.uid.first_name}}{{tds.pid.name}}&nbsp;{{tds.uid.last_name}}  </td>
                                         <td>{{tds.total_amount}}</td>
                                     </tr>

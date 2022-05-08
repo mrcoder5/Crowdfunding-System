@@ -4,6 +4,7 @@ from inspect import trace
 from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from plistlib import UID
+from turtle import position
 from django import views
 from django.forms import EmailInput
 from django.core.paginator import Paginator
@@ -113,8 +114,9 @@ def logout_user(request):
 def home_page(request):
     aprv_data=adata(request)
     s_data=sdata(request)
-        
-    return render(request,'home.html',{'sd':s_data,'ad':aprv_data})
+    topdonorsdata=topdonors_data(request)
+    
+    return render(request,'home.html',{'sd':s_data,'ad':aprv_data,'td':topdonorsdata})
 
 #retriving approved data   
 def adata(request):
@@ -144,6 +146,7 @@ def donations_details(request,slugs,id):
     
     posdata=get_pos_element(request)
     topdonorsdata=topdonors_data(request)
+    # for i in range(count):
 
 
 
@@ -214,7 +217,7 @@ def donations_details(request,slugs,id):
             pd_id=public_donors.objects.filter(email=emails).get()
             add_transaction=transactions(pid=pd_id,did=Donation.objects.get(id=did),amount=amount)
             add_transaction.save()
-                
+ 
             
     return render(request,'fullpost.html',{'ob':others,'inf':data,'clist':pg_obj,'td':topdonorsdata,'pos':posdata})
 
@@ -226,6 +229,15 @@ def get_pos_element(request):
 #get top donors list
 def topdonors_data(request):
     top_donors=topdonors.objects.order_by('-total_amount')[:5]
+    j=0
+    for i in top_donors:
+        posdata=get_pos_element(request)
+        p=posdata[j]
+        i.pos=p.tag
+        j=j+1
+    y=top_donors[0]
+    print(y.pos)
+    return top_donors
 
 # profile page
 def profile(request):

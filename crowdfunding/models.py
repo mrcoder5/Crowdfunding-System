@@ -75,6 +75,7 @@ class topdonors(models.Model):
     pid=models.ForeignKey(public_donors, verbose_name="unregistered user id", on_delete=models.DO_NOTHING,null=True)
     status=models.CharField(max_length=50,null=True)
     total_amount=models.IntegerField(default=0)
+    pos=models.TextField(null=True)
     updated=models.DateTimeField(default=timezone.now)
 
 

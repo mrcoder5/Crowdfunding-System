@@ -34,23 +34,19 @@
       <div class="row mt-5">
         
         <h2 class="mb-3">Top Donors</h2><br>
-          <table class="table" id="topdonors">
-            <tr id="golddonor" class="rounded">
-              <th style="width: 15%;">1st</td>
-              <td style="width: 60%;">name</td> 
-              <td style="width: 25%;">amount</td>
-            </tr>
-            <tr id="silverdonor">
-              <th>2nd</td>
-              <td>name</td>
-              <td>amount</td> 
-            </tr>
-            <tr id="bronzedonor">
-              <th>3rd</td>
-              <td>name</td> 
-              <td>amount</td> 
-            </tr>
-            </table>    
+        <div class="table-responsive ">
+          <table class="table table-borderless">
+              <tbody>
+                  {% for tds in td  %}
+                      <tr>
+                          <td id="pos">{{tds.pos| safe}}</td>
+                          <td>{{tds.uid.first_name}}{{tds.pid.name}}&nbsp;{{tds.uid.last_name}}  </td>
+                          <td>{{tds.total_amount}}</td>
+                      </tr>
+                  {% endfor %} 
+              </tbody>
+          </table>
+        </div>
       </div>      
 
 
