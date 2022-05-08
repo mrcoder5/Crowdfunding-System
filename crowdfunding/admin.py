@@ -12,7 +12,7 @@ class feedbacksAdmin(admin.ModelAdmin):
     list_display=('fu_name','fu_email','fu_message')
 
 class transactionsAdmin(admin.ModelAdmin):
-    list_display=('did','uid','amount','date_and_time')
+    list_display=('did','uid','pid','amount','date_and_time')
 
 class topDonorsAdmin(admin.ModelAdmin):
     list_display=('id','status','total_amount','updated')

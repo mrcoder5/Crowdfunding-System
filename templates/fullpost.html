@@ -65,17 +65,11 @@
                         <table class="table table-borderless d-inline">
                             <tbody>
                                 {% for tds in td  %}
-                                
-                                <tr>
-                                    {% if tds.uid is not None  %}
-                                        <td>{{tds.uid}}</td>
-                                        <td>{{tds.uid.first_name}}&nbsp;{{tds.uid.last_name}}  </td>
-                                    {% else %}
-                                        <td>{{tds.pid}}</td>
-                                        <td>{{tds.pid.name}}</td>
-                                    {% endif %}
-                                    <td>{{tds.total_amount}}</td>
-                                </tr>
+                                    <tr>
+                                        <td>{{tds.uid}}{{tds.pid}}</td>
+                                        <td>{{tds.uid.first_name}}{{tds.pid.name}}&nbsp;{{tds.uid.last_name}}  </td>
+                                        <td>{{tds.total_amount}}</td>
+                                    </tr>
                                 {% endfor %} 
                             </tbody>
                         </table>
@@ -96,7 +90,7 @@
                 <div class="card card-body">
                     <form action="" method="post">
                         {% csrf_token %}
-                        {%if user.is_authenticated%}
+                        {%if request.user.is_authenticated%}
                             <div class="px-5 pt-5">
                                 <p class="h4">Your Details</p>
                                 <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
@@ -109,9 +103,9 @@
                                         <div class="mt-2 pb-1">Email</div>
                                     </div>
                                     <div class="col-md-8 ">
-                                        <div class="mt-2 pb-1">{{uname.username}}</div>
-                                        <div class="mt-2 pb-1">{{request.user.get_full_name}}</div>
-                                        <div class="mt-2 pb-1">{{uname.email}}</div>
+                                        <div class="mt-2 pb-1">{{request.user}}</div>
+                                        <div class="mt-2 pb-1">{{request.user.first_name}}&nbsp;{{request.user.last_name}}</div>
+                                        <div class="mt-2 pb-1">{{request.user.email}}</div>
                                     </div>
                                 </div>
                             </div>

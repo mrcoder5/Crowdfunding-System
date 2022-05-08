@@ -1,4 +1,6 @@
 from asyncio.windows_events import NULL
+import email
+from inspect import trace
 from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from plistlib import UID
@@ -152,19 +154,11 @@ def donations_details(request,slugs,id):
             amount=int(request.POST['amount'])
             uuid=request.user
 
-
-
             # upates amount in donation model and checks status of donation
-            update_amt_donation=Donation.objects.filter(id=did).get()
-            update_amt_donation.recieved_amount=int(update_amt_donation.recieved_amount)+int(amount)
-            update_amt_donation.save()
-            update_amt_status=Donation.objects.filter(id=did).get()
-            try:
-                res=update_amt_status.if_success()
-                update_amt_status.save()
-                print(res)
-            except:
-                print('failed to run status function')
+            update_donation=Donation.objects.filter(id=did).get()
+            update_donation.recieved_amount=int(update_donation.recieved_amount)+int(amount)
+            update_donation.if_success()
+            update_donation.save()
 
             # update donations amount in topdonors model
             try:
@@ -187,43 +181,41 @@ def donations_details(request,slugs,id):
             address=request.POST['address']
             amount=request.POST['amount']
             
-            #update amount in donation post 
-            update_amt_donation=Donation.objects.filter(id=did).get()
-            update_amt_donation.recieved_amount=int(update_amt_donation.recieved_amount)+int(amount)
-            update_amt_donation.save()
-            update_amt_status=Donation.objects.filter(id=did).get()
-            try:
-                res=update_amt_status.if_success()
-                update_amt_status.save()
-                print(res)
-            except:
-                print('failed to run status function')
+            # upates amount in donation model and checks status of donation
+            update_donation=Donation.objects.filter(id=did).get()
+            update_donation.recieved_amount=int(update_donation.recieved_amount)+int(amount)
+            update_donation.if_success()
+            update_donation.save()
 
             try:
-                obj=public_donors.objects.filter(email=emails).get() 
-                print(obj.id,'obj id public donor') 
-                td_obj=topdonors.objects.get(pid=obj.id)
-                td_obj.total_amount=int(td_obj.total_amount)+int(amount)
-                td_obj.save()
-                print('updated topdonors')
-                print(obj.id)
-                add_transaction=transactions(pid=obj.id,amount=amount,did=did)
-                add_transaction.save()
-                print('transaction')
+                pd_id=public_donors.objects.filter(email=emails).get()    
+                try:
+                    td_obj=topdonors.objects.get(pid=pd_id)
+                    td_obj.total_amount=int(td_obj.total_amount)+int(amount)
+                    td_obj.save()
+                except:
+                    add_topdonor=topdonors(pid=pd_id,total_amount=amount,status='unregistered')
+                    add_topdonor.save()
+                    print('added to topdonor')
             except:
                 add_donor=public_donors(name=name,email=emails,address=address,phone=phone)
                 add_donor.save()
-                print("new public donor")
-                get_donorid=public_donors.objects.filter(email=emails).get()
-                print(get_donorid.id)
-                add_topdonor=topdonors(pid=get_donorid,total_amount=amount,status='unregistered')
-                add_topdonor.save()
-                print('added to topdonor')
-                add_transaction=transactions(pid=add_donor.id,amount=amount,did=did)
-                add_transaction.save()
-                print('transaction')
-                
+                pd_id=public_donors.objects.filter(email=emails).get()    
 
+                print(add_donor)
+                try:
+                    td_obj=topdonors.objects.get(pid=public_donors.objects.get(email=emails))
+                    td_obj.total_amount=int(td_obj.total_amount)+int(amount)
+                    td_obj.save()
+                except:
+                    add_topdonor=topdonors(pid=pd_id,total_amount=amount,status='unregistered')
+                    add_topdonor.save()
+                    print('added to topdonor')
+            pd_id=public_donors.objects.filter(email=emails).get()
+            add_transaction=transactions(pid=pd_id,did=Donation.objects.get(id=did),amount=amount)
+            add_transaction.save()
+                
+            
     return render(request,'fullpost.html',{'ob':others,'inf':data,'clist':pg_obj,'td':topdonorsdata,'pos':posdata})
 
 # get position tags and css class
@@ -234,7 +226,6 @@ def get_pos_element(request):
 #get top donors list
 def topdonors_data(request):
     top_donors=topdonors.objects.order_by('-total_amount')[:5]
-    return top_donors
 
 # profile page
 def profile(request):
