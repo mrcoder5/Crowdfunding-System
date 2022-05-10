@@ -25,23 +25,11 @@ label{
     margin-top: 10px;
 }
 
-/* 
-.bg-primary,.btn-primary{
-    background-color: #009494;
-} */
-
 .vh-30{
     height: 30vh;
 }
 .mh-50{
     max-height: 50%;
-}
-.hov:hover{
-    background-color: #0d6efd;
-    color: #fff;
-}
-.topdonors{
-    background-image: linear-gradient(to left top, #ffd700, #ffcf3f, #ffc85f, #ffc479, #ffc291, #ffbe95, #ffba99, #ffb69e, #feac94, #fea28a, #fd9781, #fc8c78);
 }
 
 .vh-40{
@@ -52,34 +40,9 @@ div#regform span, div#regform span {
     color:#777 ;
 }
 
-table tr#golddonor{
-    background: rgb(247,170,0);
-    background: linear-gradient(36deg, rgba(247,170,0,1) 0%, rgba(255,231,0,0.6418942577030813) 100%);
-}
-table tr#silverdonor{
-    background: rgb(34,193,195);
-    background: linear-gradient(36deg, rgba(34,193,195,1) 0%, rgba(223,255,255,1) 100%);       
-}
-table tr#bronzedonor{
-    background: rgb(250,101,149);
-    background: linear-gradient(36deg, rgba(250,101,149,1) 0%, rgba(249,175,199,1) 100%);
-}
+
 
 .fix-vh20{
     height: 35vh;
-}
-
-
-.bg-gold{
-    color:  #FFD700;
-    text-align: center;
-}
-.bg-silver{
-    color:  #cacaca;
-    text-align: center;
-}
-.bg-bronze{
-    color:  #6d4700;
-    text-align: center;
 }
 

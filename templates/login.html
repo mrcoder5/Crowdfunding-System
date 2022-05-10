@@ -4,6 +4,13 @@
 {%block content%}
 
         <div class="container h-100">
+          <div class="row">
+            {% if messages %}
+              {% for msg in messages  %}
+                <p>{{msg}}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
             <div class="row">
                 <div class="col-3"></div>
                 <div class="col-6 border rounded">

@@ -81,11 +81,15 @@ def login_form(request):
         if user is not None:
             login(request,user)
             uname=user.get_username
+            messages.success=(request,'Logged in successfully!')
             return redirect('home')
+        else:
+            messages.error(request,'Incorrect Username or Password!')
+
     if request.user.is_authenticated==TRUE:
         return redirect('home')
     else:
-        return render(request,'login.html')
+        return render(request,'login.html',)
 
 #register 
 def register_user(request):
@@ -113,7 +117,7 @@ def logout_user(request):
 # home page
 def home_page(request):
     aprv_data=adata(request)
-    s_data=sdata(request)
+    s_data=Donation.objects.filter(donation_status='s')[:5]
     topdonorsdata=topdonors_data(request)
     
     return render(request,'home.html',{'sd':s_data,'ad':aprv_data,'td':topdonorsdata})
@@ -137,14 +141,14 @@ def donations_details(request,slugs,id):
     others=Donation.objects.filter(donation_status='a').exclude(id=did)
 
     # get contibutors list
-    get_contibutors_list=transactions.objects.filter(did=did).order_by("-amount")
+    get_contibutors_list=transactions.objects.filter(did=did).order_by("-amount").exclude(visibility='no')
     
     # pagination
     paginator=Paginator(get_contibutors_list,5)
     pg_num=request.GET.get('page')
     pg_obj=paginator.get_page(pg_num)
     
-    posdata=get_pos_element(request)
+
     topdonorsdata=topdonors_data(request)
     # for i in range(count):
 
@@ -155,25 +159,29 @@ def donations_details(request,slugs,id):
         if request.user.is_authenticated==True:
             did=request.POST['donation-id']
             amount=int(request.POST['amount'])
+            visible=request.POST['visibility']
             uuid=request.user
+
+
+            # update donations amount in topdonors model
+            if visible=='yes':
+                try:
+                    obj=topdonors.objects.filter(uid=uuid).get()
+                    obj.total_amount=obj.total_amount+amount
+                    obj.visibility=visible
+                    obj.save()
+                except :
+                    add_contribution=topdonors(uid=request.user,status='user',total_amount=amount,visibility=visible)
+                    add_contribution.save()
+
+            post_transaction=transactions(did=Donation.objects.get(id=did),uid=uuid,amount=amount,visibility=visible)
+            post_transaction.save()
 
             # upates amount in donation model and checks status of donation
             update_donation=Donation.objects.filter(id=did).get()
             update_donation.recieved_amount=int(update_donation.recieved_amount)+int(amount)
             update_donation.if_success()
             update_donation.save()
-
-            # update donations amount in topdonors model
-            try:
-                obj=topdonors.objects.filter(uid=uuid).get()
-                obj.total_amount=obj.total_amount+amount
-                obj.save()
-            except :
-                add_contribution=topdonors(uid=request.user,status='user',total_amount=amount)
-                add_contribution.save()
-
-            post_transaction=transactions(did=Donation.objects.get(id=did),uid=uuid,amount=amount)
-            post_transaction.save()
 
 
         else:
@@ -183,43 +191,31 @@ def donations_details(request,slugs,id):
             emails=request.POST['email']
             address=request.POST['address']
             amount=request.POST['amount']
+            visible=request.POST['visibility']
+         
+            pd_id,created=public_donors.objects.get_or_create(name=name,email=emails,address=address,phone=phone)
+            try:
+                td_obj=topdonors.objects.get(pid=pd_id)
+                td_obj.total_amount=int(td_obj.total_amount)+int(amount)
+                td_obj.visibility=visible
+                td_obj.save()
+            except:
+                add_topdonor=topdonors(pid=pd_id,total_amount=amount,status='unregistered',visibility=visible)
+                add_topdonor.save()
+                print('added to topdonor')
+
+            pd_id=public_donors.objects.filter(email=emails).get()
+            add_transaction=transactions(pid=pd_id,did=Donation.objects.get(id=did),amount=amount,visibility=visible)
+            add_transaction.save()
+
             
             # upates amount in donation model and checks status of donation
             update_donation=Donation.objects.filter(id=did).get()
             update_donation.recieved_amount=int(update_donation.recieved_amount)+int(amount)
             update_donation.if_success()
             update_donation.save()
-
-            try:
-                pd_id=public_donors.objects.filter(email=emails).get()    
-                try:
-                    td_obj=topdonors.objects.get(pid=pd_id)
-                    td_obj.total_amount=int(td_obj.total_amount)+int(amount)
-                    td_obj.save()
-                except:
-                    add_topdonor=topdonors(pid=pd_id,total_amount=amount,status='unregistered')
-                    add_topdonor.save()
-                    print('added to topdonor')
-            except:
-                add_donor=public_donors(name=name,email=emails,address=address,phone=phone)
-                add_donor.save()
-                pd_id=public_donors.objects.filter(email=emails).get()    
-
-                print(add_donor)
-                try:
-                    td_obj=topdonors.objects.get(pid=public_donors.objects.get(email=emails))
-                    td_obj.total_amount=int(td_obj.total_amount)+int(amount)
-                    td_obj.save()
-                except:
-                    add_topdonor=topdonors(pid=pd_id,total_amount=amount,status='unregistered')
-                    add_topdonor.save()
-                    print('added to topdonor')
-            pd_id=public_donors.objects.filter(email=emails).get()
-            add_transaction=transactions(pid=pd_id,did=Donation.objects.get(id=did),amount=amount)
-            add_transaction.save()
- 
-            
-    return render(request,'fullpost.html',{'ob':others,'inf':data,'clist':pg_obj,'td':topdonorsdata,'pos':posdata})
+                
+    return render(request,'fullpost.html',{'ob':others,'inf':data,'clist':pg_obj,'td':topdonorsdata})
 
 # get position tags and css class
 def get_pos_element(request):
@@ -228,15 +224,13 @@ def get_pos_element(request):
 
 #get top donors list
 def topdonors_data(request):
-    top_donors=topdonors.objects.order_by('-total_amount')[:5]
+    top_donors=topdonors.objects.order_by('-total_amount').exclude(visibility='no')[:5]
     j=0
     for i in top_donors:
         posdata=get_pos_element(request)
         p=posdata[j]
         i.pos=p.tag
         j=j+1
-    y=top_donors[0]
-    print(y.pos)
     return top_donors
 
 # profile page

@@ -120,16 +120,25 @@
                                     <label for="email" class="form-label ">Email</label>
                                     <input type="email" name="email" id="email" class="form-control " required>
                                 </div>
+
                             </div>
                         {%endif%}
     
-                        <div class="px-5 pb-5">
+                        <div class="px-5 ">
+                            <div class="">
+                                <label for="visibility" class="form-label">Visibility</label><br>
+                                <select name="visibility" id="visibility" class="form-control" required>
+                                    <option value="yes" selected>Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <p class="small text-muted">Get featured in Contributors and Top donors list.</p>
+                            </div>
                             <div class="">
                                 <label for="amount" class="form-label" >Amount</label>
                                 <input type="number" name="amount" max="{{inf.max_rec_amt}}"  class="form-control" id="amount" required>
-                                <small class="text-muted">  *maximum donation amount={{inf.max_rec_amt}}</small>
+                                <small class="text-muted">  *maximum donation amount = Rs.{{inf.max_rec_amt}}</small>
                             </div>
-                            <div class="">
+                            <div class="pb-3">
                                 <input type="submit" value="Pay" class="btn btn-success px-5 mt-4">
                             </div>
                             <input type="hidden" name="donation-id" value="{{inf.id}}">

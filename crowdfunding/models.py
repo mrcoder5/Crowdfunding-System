@@ -45,8 +45,6 @@ class Donation(models.Model):
                 self.donation_status='s'
                 return self.status
 
-
-        
    
 class feedbacks(models.Model):
     fu_name=models.CharField(max_length=50)
@@ -68,6 +66,7 @@ class transactions(models.Model):
     uid=models.ForeignKey(User, verbose_name="user id", on_delete=models.DO_NOTHING,null=True)
     pid=models.ForeignKey(public_donors, verbose_name="unregistered user id", on_delete=models.DO_NOTHING,null=True)
     amount=models.IntegerField(blank=True,null=True)
+    visibility=models.CharField(max_length=3,default='yes')
     date_and_time=models.DateTimeField(default=timezone.now)
 
 class topdonors(models.Model):
@@ -75,6 +74,7 @@ class topdonors(models.Model):
     pid=models.ForeignKey(public_donors, verbose_name="unregistered user id", on_delete=models.DO_NOTHING,null=True)
     status=models.CharField(max_length=50,null=True)
     total_amount=models.IntegerField(default=0)
+    visibility=models.CharField(max_length=3,default='yes')
     pos=models.TextField(null=True)
     updated=models.DateTimeField(default=timezone.now)
 
