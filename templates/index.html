@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@247;350&display=swap" rel="stylesheet">
+
     
     <!-- reference your installed Font Awesome Free package's files here -->
     <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -22,8 +29,9 @@
         <div class="row align-items-end mt-3">
             <div class="col-md-3 h3">Crowd Funding</div>
             <div class="col-md-9">
+
                 <nav>
-                <ul class="nav nav-pills  justify-content-end">
+                <ul class="nav nav-pills me-auto justify-content-end">
                     <li class="nav-item mx-1"><a class="nav-link hov" id="nav"   href="{% url 'home' %}">Home</a></li>
                     <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'donates'%}">Donate Now</a></li>
                     <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'req-donation' %}">Request Donation Post</a></li>
@@ -43,14 +51,8 @@
                 </nav>
             </div>
         </div>
-        <div class="row">
-            {% if messages %}
-                {% for msg in messages  %}
-                    <p class="text-muted">{{msg}}</p>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <hr class="bg-success border-2 border-top border-success">
+
+
 
 
         <!-- body section -->

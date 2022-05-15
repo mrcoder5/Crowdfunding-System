@@ -3,29 +3,70 @@
 {% block header %}Profile{% endblock header %}
 {% block content %}
 
-        <div class="row ">
-            <div class="col-md-8 mt-2">
+        <div class="row mt-5">
+
+            <!-- User column -->
+            <div class="col-md-4 mt-2">
+                <div class="w-100 d-flex flex-column text-center">
+                    <img src="{%static '/images/4.jpg'%}" alt="" width="100%" srcset="" class="rounded">
+                </div>
+            </div>
+            <div class="col-md-2 text-muted mt-4">
+                <p>First Name</p>
+                <p>Last Name</p>
+                <p>Username</p>
+                <p>Email</p>
+            </div>
+            <div class="col-md-6  mt-4">
+                <p>{{request.user.first_name}}</p>
+                <p>{{request.user.last_name}}</p>
+                <p>{{request.user}}</p>
+                <p>{{request.user.email}}</p>
+            </div>
+
+            <!-- contributiions column -->
+            <div class="col-md-12 mt-5">
 
                 <h5 class="text-muted">Contributions</h5>
                 <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
 
                 {% if 'uc' %}
-                <table class="table  text-uppercase small mt-2">
-                    <thead>
-                        <th>Donation Title</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                    </thead>
-                    <tbody class="">
-                           {% for contrib in uc  %}
-                                <tr>
-                                    <td>{{contrib.did.donation_title}}</td>
-                                    <td>{{contrib.amount}}</td>
-                                    <td>{{contrib.date_and_time}}</td>
-                                </tr>
-                           {% endfor %} 
-                    </tbody>
-                </table>
+                    <table class="table text-uppercase small mt-2">
+                        <thead>
+                            <th>Donation Title</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </thead>
+                        <tbody class="">
+                               {% for contrib in uc  %}
+                                    <tr>
+                                        <td>{{contrib.did.donation_title}}</td>
+                                        <td>{{contrib.amount}}</td>
+                                        <td>{{contrib.date_and_time}}</td>
+                                    </tr>
+                               {% endfor %} 
+                        </tbody>
+                    </table>
+
+                    {% if uc.has_previous or uc.has_next %}
+                        <div class="row mt-4">
+                            <div class="d-flex justify-content-center" >
+
+                                {% if uc.has_previous %}
+                                    <a href="?page=1" class="px-2"><i class="fa-solid fa-angles-left"></i></a>
+                                    <a href="?page={{ uc.previous_page_number }}"><i class="fa-solid fa-angle-left"></i></a>
+                                {% endif %}
+                        
+                                <span class=" px-2">Page</span> {{ uc.number }} <span class="text-muted px-2"> of {{ uc.paginator.num_pages }}</span>
+                        
+                                {% if uc.has_next %}
+                                    <a href="?page={{ uc.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a>
+                                    <a href="?page={{ uc.paginator.num_pages }} "  class="px-2"><i class="fa-solid fa-angles-right"></i></a>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endif %}   
 
                 <h5 class="text-muted mt-5">Raising Donation</h5>
@@ -50,24 +91,29 @@
                            {% endfor %} 
                     </tbody>
                 </table>
+
+                
+                    {% if rd.has_previous or rd.has_next %}
+                    <div class="row mt-4">
+                        <div class="d-flex justify-content-center" >
+
+                            {% if rd.has_previous %}
+                                <a href="?page=1" class="px-2"><i class="fa-solid fa-angles-left"></i></a>
+                                <a href="?page={{ r.previous_page_number }}"><i class="fa-solid fa-angle-left"></i></a>
+                            {% endif %}
+                        
+                            <span class=" px-2">Page</span> {{ rd.number }} <span class="text-muted px-2"> of {{ rd.paginator.num_pages }}</span>
+                        
+                            {% if rd.has_next %}
+                                <a href="?page={{ rd.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a>
+                                <a href="?page={{ rd.paginator.num_pages }} "  class="px-2"><i class="fa-solid fa-angles-right"></i></a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    {% endif %}
                 {% endif %}   
 
-            </div>
-            <div class="col-md-4 mt-2">
-                <div class="w-100 d-flex flex-column text-center">
-                    <img src="{%static '/images/4.jpg'%}" alt="" width="100%" srcset="" class="rounded">
-                    <span>{{request.user.first_name}}&nbsp;{{request.user.last_name}}</span>
-                    <small class="text-muted">@{{request.user}}</small>
-                    <!-- <button class="btn btn-primary rounded " type="button" data-bs-toggle="collapse" data-bs-target="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">edit profile</button>   
-                    <div class="collapse border rounded">
-                        <div class="card card-body">
-                            <form action="" method="post">
-                                {% csrf_token %}
-
-                            </form>
-                        </div>
-                    </div> -->
-                </div>
             </div>
         </div
         

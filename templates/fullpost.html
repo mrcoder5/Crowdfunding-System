@@ -16,13 +16,18 @@
         <div class="col-md-5 pt-3 ">
             {% if clist %}
             <h5 class="mx-3 d-block">Contirbutors</h5>
-                <div class="row fix-vh20">
+                <div class="row fix-vh20  d-flex align-content-start">
                     <table class="table mx-3" >
+                        <thead><tr>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>Amount</th>
+                        </tr></thead>
                         <tbody class="text-muted ">
                         {% for c in clist %}
                             <div>
-                                <tr>
-                                    <th id='sn'>1</th>
+                                <tr class="small">
+                                    <th id='sn'>{{c.uid}}</th>
                                     <td>{{c.uid.first_name}}&nbsp;{{c.uid.last_name}}</td>
                                     <td>{{c.amount}}</td>
                                 </tr>
@@ -32,8 +37,8 @@
                     </table>
                 </div>
 
-                <div class="row">
-                    <div class="d-flex justify-content-center " >
+                <div class="row mt-4">
+                    <div class="d-flex justify-content-center" >
                         
                             {% if clist.has_previous %}
                                 <a href="?page=1" class="px-2"><i class="fa-solid fa-angles-left"></i></a>

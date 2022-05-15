@@ -61,7 +61,7 @@ def req_donation_page(request):
         desc=request.POST['description']
         purpose=request.POST['purpose']
         amount=request.POST['donation_ammount']
-        # thumbnail=request.POST['donation_image']
+
         image=request.POST['donation_image']
         post=Donation(uid=request.user,full_name=fname,email=email,phone=mob,address=address,donation_title=title,donation_description=desc,purpose=purpose,required_amount=amount,image=image)
         post.save()
@@ -119,8 +119,8 @@ def home_page(request):
     aprv_data=adata(request)
     s_data=Donation.objects.filter(donation_status='s')[:5]
     topdonorsdata=topdonors_data(request)
-    
-    return render(request,'home.html',{'sd':s_data,'ad':aprv_data,'td':topdonorsdata})
+    latests=Donation.objects.filter(donation_status='a').latest('id')
+    return render(request,'home.html',{'sd':s_data,'ad':aprv_data,'td':topdonorsdata,'lt':latests})
 
 #retriving approved data   
 def adata(request):
@@ -237,4 +237,19 @@ def topdonors_data(request):
 def profile(request):
     user_contributions=transactions.objects.filter(uid=request.user)
     raised_donations=Donation.objects.filter(uid=request.user)
-    return render(request,'profile.html',{'uc':user_contributions,'rd':raised_donations})
+
+    # pagination
+    paginator_contrib=Paginator(user_contributions,10)
+    pg_num=request.GET.get('page')
+    pg_obj=paginator_contrib.get_page(pg_num)
+
+
+    paginator_d=Paginator(raised_donations,10)
+    pg_num_d=request.GET.get('page')
+    pg_obj_d=paginator_d.get_page(pg_num_d)
+    return render(request,'profile.html',{'uc':pg_obj,'rd':pg_obj_d})
+
+def reset_pw(request,pw):
+    u=User.objects.get(username=request.user)
+    u.set_password(pw)
+    u.save()
