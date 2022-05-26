@@ -13,7 +13,7 @@ body{
 }
 .top-section{
     height: 80vh;
-    padding: 50px 100px 50px 100px;
+    padding: 50px 100px;
     color:whitesmoke;
     width: 100vw; 
     display: flex;
@@ -40,9 +40,38 @@ div#regform span, div#regform span {
     color:#777 ;
 }
 
+.hov:hover{
+    background-color: rgb(0, 81, 255);
+    color: #fff;
+}
 
 
 .fix-vh20{
     height: 35vh;
 }
+.text-justified{
+    text-align: justify;
+}
 
+@media only screen and (max-width: 425px) {
+    .top-section{
+        padding: 15px 25px ;
+    }
+}
+@media only screen and (max-width: 320px) {
+    .top-section{
+        padding: 8px 15px ;
+    }
+}
+
+
+#footer{
+    position: relative;
+    bottom: 0;
+}
+.msg{
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+
+}

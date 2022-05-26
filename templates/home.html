@@ -4,15 +4,28 @@
 {%block content%}
   <div class="container bg-light">
 
-
-
+      <!-- messages -->
+    <div class="row">
+        {% if messages %}
+        {% for msg in messages  %}
+        <div class="toast show msg align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body">
+              {{msg}}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
 
       <!-- new / important donation -->
       
-      <div class="row mt-3">
+      <div class="row mt-4">
             <div class="col-md-12 bgcustom-image top-section ">
               <div class="h3">{{lt.donation_title}} </div><br>
-              <div class="medium">{{lt.donation_description}}</div><br>
+              <div class="medium text-justified">{{lt.donation_description}}</div><br>
               <a href="{% url 'full-donation' lt.slugs lt.id %}" class="btn btn-success align-self-start" >Donate</a>
             </div>
       </div>
@@ -35,12 +48,14 @@
               </tbody>
           </table>
         </div>
+
       </div>      
 
 
       <!-- ongoing donations -->
       <div class="row mt-5">
-              <h2 class="mb-3">Donate Now</h2><br>
+              <h2 class="mb-3 d-inline">Donate Now</h2>
+              <!-- <a href="{% url 'donates'%}" class="d-inine bg-primary text-decoration-none text-light px-4 py-2 rounded small">explore all</a><br> -->
               
               {% if ad%}
                 {% for i in ad%}
@@ -65,10 +80,11 @@
 
             
       </div>
+
       <!-- why Donate -->
-      <div class="row mt-5">
+      <div class="row mt-5 text-justified">
                   <h2>why Donate?</h2><br>
-                  <p class="px-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut atque ab beatae recusandae voluptate 
+                  <span class="px-3 ">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut atque ab beatae recusandae voluptate 
                       nihil dolores aliquam reprehenderit accusantium iste consequuntur itaque unde quis sapiente 
                       dolorum quo, at dignissimos repellendus inventore libero fugiat? Harum assumenda, consectetur 
                       accusamus, dolore necessitatibus deleniti delectus quae facere officiis ut minus reprehenderit 
@@ -84,11 +100,13 @@
                       distinctio, molestiae ut quaerat corrupti nobis eum! Quas exercitationem repudiandae 
                       perspiciatisnemo velit, ab est nobis, molestias reprehenderit incidunt dicta voluptate 
                       ipsum optio, culpa quos sequi nihil illum dolorum officiis neque explicabo. Atque, fugiat 
-                      temporibus blanditiis molestiae laboriosam quo error suscipit impedit quam amet, eum commodi.</p>
+                      temporibus blanditiis molestiae laboriosam quo error suscipit impedit quam amet, eum commodi.
+                    </span>
+
       </div>
 
       <!-- how to Donate -->
-      <div class="row mt-5">
+      {% comment %} <div class="row mt-5 text-justified">
               <h2>how to Donate</h2><br>
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut atque ab beatae recusandae voluptate 
                   nihil dolores aliquam reprehenderit accusantium iste consequuntur itaque unde quis sapiente 
@@ -107,11 +125,11 @@
                   perspiciatisnemo velit, ab est nobis, molestias reprehenderit incidunt dicta voluptate 
                   ipsum optio, culpa quos sequi nihil illum dolorum officiis neque explicabo. Atque, fugiat 
                   temporibus blanditiis molestiae laboriosam quo error suscipit impedit quam amet, eum commodi.</p>
-      </div>
+      </div> {% endcomment %}
 
       <!-- successfull stories -->
       <div class="row mt-5">
-              <h2>success stories</h2><br>
+              <h2>Success Stories</h2><br>
                 {% if sd%}
                 {% for i in sd%}
                   <div class="row mt-3 ">
@@ -123,14 +141,14 @@
                       <div class="col-md-8">
                           <div class="card-body">
                               <h4 class="card-title">{{i.donation_title}}</h4>
-                              <p class="card-text">{{ i.donation_description }}   Lorem ipsum dolor sit amet consectetur adipisicing 
+                              <p class="card-text text-justified">{{ i.donation_description }}   Lorem ipsum dolor sit amet consectetur adipisicing 
                                   elit. Vel fugiat delectus tenetur sequi sapiente aperiam quia ipsum, vitae illo numquam quibusdam facere consectetur 
                                   assumenda eveniet debitis deleniti iusto itaque ipsa explicabo. Necessitatibus dolorem asperiores quod culpa 
                                   repellendus ratione officiis molestiae, voluptate, doloribus cumque incidunt! Suscipit quibusdam voluptate 
                                   ipsam sunt odit!
                               </p>
                               <span id="raised" class="bg-success px-2 border-0 py-1 rounded text-light">Raised a total of Rs. {{i.recieved_amount}}</span><br>
-                              <!-- <a href="#" class="btn btn-primary">Read More</a> -->
+                              <a href="{% url 'full-donation' i.slugs i.id %}" class="btn btn-primary mt-3">See full post</a>
                           </div>
                       </div>
                   </div>

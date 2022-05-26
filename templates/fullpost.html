@@ -8,27 +8,100 @@
     </div>
      <!-- donation image and contributors list -->
     <div class="row mt-2">
-        <div class="col-md-7">
+        <div class="col-md-7 ">
             <img src="{%static '/images/4.jpg'%}" alt="thumbnail" class="" width="100%" height="auto">
+            <div class="col-md-12 mt-3">
+                <p class="text-justified">{{inf.donation_description}}</p>
+            </div>
+            {% if inf.max_rec_amt > 0 %}
+            <p><button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapsepayment">Donate</button></p>
+            <div class="collapse border rounded" id="collapsepayment">
+                <div class="card card-body">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {%if request.user.is_authenticated%}
+                            <div class="px-md-5 pt-md-5 px-sm-5 pt-sm-5">
+                                <p class="h4">Your Details</p>
+                                <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
+
+                                <div class="row">
+                                    
+                                    <div class="col-md-2 col-sm-5 col-4 border-end ">
+                                        <div class="mt-2 pb-1 "><i class="fa fa-user mx-1" id="nav" aria-hidden="true"></i></div>
+                                        <div class="mt-2 pb-1">Name</div>
+                                        <div class="mt-2 pb-1">Email</div>
+                                    </div>
+                                    <div class="col-md-8 col-sm-5 col-8">
+                                        <div class="mt-2 pb-1">{{request.user}}</div>
+                                        <div class="mt-2 pb-1">{{request.user.first_name}}&nbsp;{{request.user.last_name}}</div>
+                                        <div class="mt-2 pb-1">{{request.user.email}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        {%else%}
+                            <div class="px-md-5 pt-md-5 px-sm-5 pt-sm-5">
+                                <p class="h5">Enter Your Personal Details</p>
+                                <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
+                                <div>
+                                    <label for="fullname" class="form-label">Name</label>
+                                    <input type="text" name="fullname" id="name" class="form-control" required>
+                                </div>
+                                <div>
+                                    <label for="phone" class="form-label ">Phone</label>
+                                    <input type="text" name="phone" id="phone" class="form-control" required>
+                                </div>
+                                <div>
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" name="address" id="address" class="form-control" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="form-label ">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control " required>
+                                </div>
+
+                            </div>
+                        {%endif%}
+    
+                        <div class="px-md-5 pt-md-3 px-sm-5 pt-sm-3">
+                            <div class="">
+                                <label for="visibility" class="form-label">Visibility</label><br>
+                                <select name="visibility" id="visibility" class="form-control" required>
+                                    <option value="yes" selected>Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <p class="small text-muted">Get featured in Contributors and Top donors list.</p>
+                            </div>
+                            <div class="">
+                                <label for="amount" class="form-label" >Amount</label>
+                                <input type="number" name="amount" max="{{inf.max_rec_amt}}"  class="form-control" id="amount" required>
+                                <small class="text-muted">  *maximum donation amount = Rs.{{inf.max_rec_amt}}</small>
+                            </div>
+                            <div class="pb-3">
+                                <input type="submit" value="Pay" class="btn btn-success px-5 mt-4">
+                            </div>
+                            <input type="hidden" name="donation-id" value="{{inf.id}}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
         </div>
 
          <!-- Contirbutors list and top donors list -->
-        <div class="col-md-5 pt-3 ">
+        <div class="col-md-5 col-11 pt-3 ">
             {% if clist %}
             <h5 class="mx-3 d-block">Contirbutors</h5>
                 <div class="row fix-vh20  d-flex align-content-start">
                     <table class="table mx-3" >
-                        <thead><tr>
-                            <th>Username</th>
-                            <th>Full Name</th>
-                            <th>Amount</th>
-                        </tr></thead>
-                        <tbody class="text-muted ">
+                        <thead class="small text-muted">
+                            <td>Full Name</td>
+                            <td>Amount</td>
+                        </thead>
+                        <tbody class="">
                         {% for c in clist %}
                             <div>
                                 <tr class="small">
-                                    <th id='sn'>{{c.uid}}</th>
-                                    <td>{{c.uid.first_name}}&nbsp;{{c.uid.last_name}}</td>
+                                    <td>{{c.uid.first_name}}{{c.pid.name}}&nbsp;{{c.uid.last_name}}</td>
                                     <td>{{c.amount}}</td>
                                 </tr>
                             </div>
@@ -74,85 +147,6 @@
             {% endif %}
               
         </div>
-    </div>
-    <!-- donation description and payment  -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <p>{{inf.donation_description}}</p>
-        </div>
-        <div class="col-md-6">
-            <p><button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapsepayment">Donate</button></p>
-            <div class="collapse border rounded" id="collapsepayment">
-                <div class="card card-body">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {%if request.user.is_authenticated%}
-                            <div class="px-5 pt-5">
-                                <p class="h4">Your Details</p>
-                                <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
-
-                                <div class="row">
-                                    
-                                    <div class="col-md-2 border-end ">
-                                        <div class="mt-2 pb-1 "><i class="fa fa-user mx-1" id="nav" aria-hidden="true"></i></div>
-                                        <div class="mt-2 pb-1">Name</div>
-                                        <div class="mt-2 pb-1">Email</div>
-                                    </div>
-                                    <div class="col-md-8 ">
-                                        <div class="mt-2 pb-1">{{request.user}}</div>
-                                        <div class="mt-2 pb-1">{{request.user.first_name}}&nbsp;{{request.user.last_name}}</div>
-                                        <div class="mt-2 pb-1">{{request.user.email}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        {%else%}
-                            <div class="px-5 pt-5">
-                                <p class="h5">Enter Your Personal Details</p>
-                                <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">
-                                <div>
-                                    <label for="fullname" class="form-label">Name</label>
-                                    <input type="text" name="fullname" id="name" class="form-control" required>
-                                </div>
-                                <div>
-                                    <label for="phone" class="form-label ">Phone</label>
-                                    <input type="text" name="phone" id="phone" class="form-control" required>
-                                </div>
-                                <div>
-                                    <label for="address" class="form-label">Address</label>
-                                    <input type="text" name="address" id="address" class="form-control" required>
-                                </div>
-                                <div>
-                                    <label for="email" class="form-label ">Email</label>
-                                    <input type="email" name="email" id="email" class="form-control " required>
-                                </div>
-
-                            </div>
-                        {%endif%}
-    
-                        <div class="px-5 ">
-                            <div class="">
-                                <label for="visibility" class="form-label">Visibility</label><br>
-                                <select name="visibility" id="visibility" class="form-control" required>
-                                    <option value="yes" selected>Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                                <p class="small text-muted">Get featured in Contributors and Top donors list.</p>
-                            </div>
-                            <div class="">
-                                <label for="amount" class="form-label" >Amount</label>
-                                <input type="number" name="amount" max="{{inf.max_rec_amt}}"  class="form-control" id="amount" required>
-                                <small class="text-muted">  *maximum donation amount = Rs.{{inf.max_rec_amt}}</small>
-                            </div>
-                            <div class="pb-3">
-                                <input type="submit" value="Pay" class="btn btn-success px-5 mt-4">
-                            </div>
-                            <input type="hidden" name="donation-id" value="{{inf.id}}">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
     </div>
 <!--  -->
     <hr class="border-2 border-top bg-success border-success rounded shadow-sm ">

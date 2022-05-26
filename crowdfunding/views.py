@@ -1,14 +1,6 @@
 from asyncio.windows_events import NULL
-import email
-from inspect import trace
-from multiprocessing.sharedctypes import Value
 from pickle import TRUE
-from plistlib import UID
-from turtle import position
-from django import views
-from django.forms import EmailInput
 from django.core.paginator import Paginator
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from crowdfunding.models import Donation,  feedbacks, public_donors, topdonors, transactions,pos
 from django.contrib import messages
@@ -32,7 +24,8 @@ def contact_page(request):
         fmessage=request.POST['message']
         savemessage=feedbacks(fu_name=fname,fu_email=femail,fu_message=fmessage)
         savemessage.save()
-        return redirect('home.html')
+        messages.success(request,'Message Sent!')
+        return redirect('home')
 
 
     return render(request,'contact.html')
@@ -80,11 +73,12 @@ def login_form(request):
         user=authenticate(username=uname,password=passw)
         if user is not None:
             login(request,user)
-            uname=user.get_username
-            messages.success=(request,'Logged in successfully!')
+            uname=user.get_username   
+            messages.success(request,'Logged in successfully!')
             return redirect('home')
         else:
-            messages.error(request,'Incorrect Username or Password!')
+            messages.add_message(request, messages.ERROR, 'Incorrect Username or Password!')
+            return redirect('login')
 
     if request.user.is_authenticated==TRUE:
         return redirect('home')
