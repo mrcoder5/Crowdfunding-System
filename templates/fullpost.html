@@ -6,15 +6,18 @@
     <div class="row mt-5">
         <h4>{{inf.donation_title}}</h4>
     </div>
-     <!-- donation image and contributors list -->
+     <!--  -->
     <div class="row mt-2">
         <div class="col-md-7 ">
+            <!-- donation image -->
             <img src="{%static '/images/4.jpg'%}" alt="thumbnail" class="" width="100%" height="auto">
+            <!-- donation description -->
             <div class="col-md-12 mt-3">
                 <p class="text-justified">{{inf.donation_description}}</p>
             </div>
+            <!-- payment -->
             {% if inf.max_rec_amt > 0 %}
-            <p><button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapsepayment">Donate</button></p>
+            <p><button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapsepayment">Donate</button></p>
             <div class="collapse border rounded" id="collapsepayment">
                 <div class="card card-body">
                     <form action="" method="post">

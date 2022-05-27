@@ -7,7 +7,7 @@ urlpatterns = [
     path('contact',views.contact_page,name='contact'),
     path('donates',views.donate_now_page, name='donates'),
     
-    path('',views.home_page),
+    path('',views.blank_url),
     path('home',views.home_page, name='home'),
     path('req-donation',views.req_donation_page, name='req-donation'),
     path('login',views.login_form,name='login'),

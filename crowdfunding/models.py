@@ -42,6 +42,8 @@ class Donation(models.Model):
             if self.recieved_amount==self.required_amount:
                 self.donation_status='s'
                 return self.status
+    
+
 
    
 class feedbacks(models.Model):

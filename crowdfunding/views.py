@@ -106,6 +106,7 @@ def register_user(request):
 def logout_user(request):
     if User.is_authenticated:
         logout(request)
+        messages.success(request,'Logged out successfully!')
         return redirect('home')
 
 # home page
@@ -114,6 +115,7 @@ def home_page(request):
     s_data=Donation.objects.filter(donation_status='s')[:5]
     topdonorsdata=topdonors_data(request)
     latests=Donation.objects.filter(donation_status='a').latest('id')
+
     return render(request,'home.html',{'sd':s_data,'ad':aprv_data,'td':topdonorsdata,'lt':latests})
 
 #retriving approved data   
@@ -126,7 +128,8 @@ def sdata(request):
     data=Donation.objects.filter(donation_status='s')
     return(data)
 
-
+def blank_url(request):
+    return redirect('home')
 
 #donation details post from donates page
 def donations_details(request,slugs,id):

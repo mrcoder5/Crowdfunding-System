@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block header %}Profile{% endblock header %}
+{% block header %}{{request.user}} | Profile{% endblock header %}
 {% block content %}
 
         <div class="row mt-5">
@@ -12,19 +12,22 @@
                 </div>
             </div>
 
-            <div class="col-lg-2 col-sm-6 text-muted mt-4">
+            <div class="col-lg-2 col-sm-6 col-4 text-muted mt-4">
                 <p>First Name</p>
                 <p>Last Name</p>
                 <p>Username</p>
                 <p>Email</p>
             </div>
-            <div class="col-lg-6 col-sm-6  mt-4">
+            <div class="col-lg-6 col-sm-6 col-8 mt-4">
                 <p>{{request.user.first_name}}</p>
                 <p>{{request.user.last_name}}</p>
                 <p>{{request.user}}</p>
                 <p>{{request.user.email}}</p>
-            </div>
+                <button class="btn btn-secondary">Change Password</button>
 
+            </div>
+            <div class="col-lg-12 col-sm-6">
+            </div>
             <!-- contributiions column -->
             <div class="col-md-12  mt-5">
 

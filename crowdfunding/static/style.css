@@ -64,11 +64,10 @@ div#regform span, div#regform span {
     }
 }
 
-
-#footer{
-    position: relative;
-    bottom: 0;
+.min-vh-80{
+    min-height: 83vh!important;
 }
+
 .msg{
     position: absolute;
     bottom: 50px;

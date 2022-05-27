@@ -2,8 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- bootstrap css -->
     <link rel="stylesheet" href="{% static 'bootstrap.min.css'%}">
+    <!-- custom css -->
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 
@@ -19,48 +22,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block header%}{%endblock%}</title>
 </head>
-<body class="min-vh-100">
-    <div class="container ">
+<body class="">
+    <div class="container min-vh-80 ">
         <!-- header -->
         <div class="row align-items-end mt-4">
-            <div class="col-md-3 col-6 h3">Crowd Funding</div>
-            <div class="col-md-9 col-6 navbar-expand-lg">
-                <button type="button" class="navbar-toggler bg-primary text-light " data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <div class="col-md-3 col-6 col-sm-4 h2">Crowd Funding</div>
+            <div class="col-md-9 col-6 d-flex col-sm-7 justify-content-end navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <nav class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="nav nav-pills ms-auto ">
-                    <li class="nav-item mx-1"><a class="nav-link hov" id="nav"   href="{% url 'home' %}">Home</a></li>
-                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'donates'%}">Donate Now</a></li>
-                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'req-donation' %}">Request Donation Post</a></li>
+                  
+                    <li class="nav-item mx-1"><a class="nav-link hov {% if request.resolver_match.url_name == 'home' %}active{% endif %} " id="nav"   href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link hov {% if request.resolver_match.url_name == 'donates' %}active{% endif %}"  id="nav"  href="{% url 'donates'%}">Donate Now</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link hov {% if request.resolver_match.url_name == 'req-donation' %}active{% endif %}"  id="nav"  href="{% url 'req-donation' %}">Request Donation Post</a></li>
                     {% comment %} <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'about' %}">About Us</a></li> {% endcomment %}
-                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'contact' %}">Contact Us</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link hov {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"  id="nav"  href="{% url 'contact' %}">Contact Us</a></li>
                     
                     {% if user.is_authenticated %}
                     
-                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'profile' %}"><i class="fa fa-user mx-1" id="nav" aria-hidden="true"></i>{{request.user}}</a></li>
-                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'logout' %}">Logout</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link hov {% if request.resolver_match.url_name == 'profile' %}active{% endif %}"  id="nav"  href="{% url 'profile' %}"><i class="fa fa-user mx-1" id="nav" aria-hidden="true"></i>{{request.user}}</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link hov {% if request.resolver_match.url_name == 'logout' %}active{% endif %}"  id="nav"  href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
-                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'login' %}">Login</a></li>
-                    <li class="nav-item mx-1"><a class="nav-link hov"  id="nav"  href="{% url 'register' %}">Register</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link hov {% if request.resolver_match.url_name == 'login' %}active{% endif %}"  id="nav"  href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link hov {% if request.resolver_match.url_name == 'register' %}active{% endif %}"  id="nav"  href="{% url 'register' %}">Register</a></li>
                     {% endif %}
 
                 </ul>
                 </nav>
             </div>
+
+
+            {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Navbar</a>
+                  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                      </li>
+                    </ul>
+                    <form class="d-flex">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+            </nav> {% endcomment %}
+
         </div>
-
-
-
 
         <!-- body section -->
         {% block content %}{% endblock content %}
-
-
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <!-- footer -->
-        <div class="row footers mt-5 text-light bg-primary p-2 border-0 rounded "  id="footer">
+        <div class="row mt-5 text-light bg-primary p-2 border-0 rounded d-flex align-content-end ">
             <div class="row justify-content-center">© 2022 Rahul Shah</div>
         </div>
     </div>
