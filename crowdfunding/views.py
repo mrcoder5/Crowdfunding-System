@@ -45,24 +45,27 @@ def success_stories(request):
 
 #req donation
 def req_donation_page(request):
-    if request.method=='POST':
-        fname=request.POST['full_name']
-        email=request.POST['email']
-        mob=request.POST['mobile_number']
-        address=request.POST['address']
-        title=request.POST['donation_title']
-        desc=request.POST['description']
-        purpose=request.POST['purpose']
-        amount=request.POST['donation_ammount']
+    if request.user.is_authenticated==True:
+        if request.method=='POST':
+            fname=request.POST['full_name']
+            email=request.POST['email']
+            mob=request.POST['mobile_number']
+            address=request.POST['address']
+            title=request.POST['donation_title']
+            desc=request.POST['description']
+            purpose=request.POST['purpose']
+            amount=request.POST['donation_ammount']
+            image=request.POST['donation_image']
 
-        image=request.POST['donation_image']
-        post=Donation(uid=request.user,full_name=fname,email=email,phone=mob,address=address,donation_title=title,donation_description=desc,purpose=purpose,required_amount=amount,image=image)
-        post.save()
-        return redirect('req-donation')
-
-
-
-    return render(request,'req_donation.html')
+            post=Donation(uid=request.user,full_name=fname,email=email,phone=mob,address=address,donation_title=title,donation_description=desc,purpose=purpose,required_amount=amount,image=image)
+            post.save()
+            messages.success(request,'Donation request posted')
+            return redirect('home')
+        return render(request,'req_donation.html')
+        
+    else:
+        messages.error(request,'Register first!')
+        return redirect('register')
 
 
 #login

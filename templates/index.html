@@ -24,6 +24,23 @@
 </head>
 <body class="">
     <div class="container min-vh-80 ">
+            <!-- messages -->
+          <div class="row">
+            {% if messages %}
+            {% for msg in messages  %}
+            <div class="toast show msg align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                <div class="toast-body">
+                  {{msg}}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+
         <!-- header -->
         <div class="row align-items-end mt-4">
             <div class="col-md-3 col-6 col-sm-4 h2">Crowd Funding</div>
