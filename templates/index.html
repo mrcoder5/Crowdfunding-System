@@ -28,7 +28,11 @@
           <div class="row">
             {% if messages %}
             {% for msg in messages  %}
+            {% if msg.tags == "error" %}
+            <div class="toast show msg align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            {% else %}
             <div class="toast show msg align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            {% endif %}
               <div class="d-flex">
                 <div class="toast-body">
                   {{msg}}

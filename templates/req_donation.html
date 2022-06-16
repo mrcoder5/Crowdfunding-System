@@ -10,7 +10,7 @@
             <form action=""  method="post">
             {% csrf_token %} 
                <div class="row">
-                   {% if user.is_authenticated is not True %}
+                   {% comment %} {% if user.is_authenticated is not True %}
                         <p class="text-muted h5 mt-3">Your Information</p>
                         <!-- Name -->
                         <div class="col-md-12">
@@ -24,24 +24,14 @@
                         <input type="email" class="form-control" name="email" placeholder="abc@xyz.com" id="email">
                         </div>
 
-                        <!-- mobile number -->
-                        <div class="col-md-6">
-                        <label for="mobile_number" class="form-label">Mobile</label>
-                        <input type="tel" name="mobile_number" class="form-control" placeholder="Enter 10 digit mobile number." pattern="[0-9]{10}" id="mobile_number"  required>
-                        </div>
 
-                        <!-- address -->
-                        <div class="col-md-12">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" name="address" placeholder="Enter your address." id="address" required>
-                        </div>
-                    {% else %}
-                        <input type="hidden" name="full_name">
+                    {% else %} {% endcomment %}
+                        <input type="hidden" name="full_name" value=''>
                         <input type="hidden" name="address">
-                        <input type="hidden" value="0" name="mobile_number">
-                        <input type="hidden" name="email">
-                    {% endif %}       
-                    <hr class="bg-success border-2 border-top border-success mt-5">  
+                        <input type="hidden" value="0" name="mobile_number" value=''>
+                        <input type="hidden" name="email" value=''>
+                    {% comment %} {% endif %}        {% endcomment %}
+                    {% comment %} <hr class="bg-success border-2 border-top border-success mt-5">   {% endcomment %}
                     <p class="text-muted h5">Provide Information for donation</p>
 
                     <!-- donation title -->
@@ -56,7 +46,17 @@
                         <label for="floatingTextarea2" >Description</label>
                         <textarea class="form-control" placeholder="Brief the cause." name="description" id="floatingTextarea2" style="height: 100px" maxlength='499' required></textarea>
                     </div>
-                    
+                    <!-- mobile number -->
+                    <div class="col-md-6">
+                        <label for="mobile_number" class="form-label">Mobile</label>
+                        <input type="tel" name="mobile_number" class="form-control" placeholder="Enter 10 digit mobile number." pattern="[0-9]{10}" id="mobile_number"  required>
+                    </div>
+    
+                    <!-- address -->
+                    <div class="col-md-6">
+                        <label for="address" class='form-label'>Address</label>
+                        <input type="text" class="form-control" name="address" placeholder="Enter your address." id="address" required>
+                    </div>
 
                     <!-- donation raising purpose -->
                     <div class="col-md-12 mt-3" >

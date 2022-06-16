@@ -47,8 +47,8 @@ def success_stories(request):
 def req_donation_page(request):
     if request.user.is_authenticated==True:
         if request.method=='POST':
-            fname=request.POST['full_name']
-            email=request.POST['email']
+            fname=request.user.first_name +' '+ request.user.last_name
+            email=request.user.email
             mob=request.POST['mobile_number']
             address=request.POST['address']
             title=request.POST['donation_title']

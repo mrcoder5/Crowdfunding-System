@@ -3,7 +3,7 @@ from crowdfunding.models import Donation, feedbacks, public_donors, topdonors, t
 # Register your models here.
 admin.site.site_header="CROWD FUNDING"
 
-@admin.register(Donation)
+
 class DonationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slugs": ("donation_title",)}
     list_display=('id','donation_title','required_amount','donation_status','progress')
@@ -28,3 +28,4 @@ admin.site.register(public_donors,public_DonorAdmin)
 admin.site.register(feedbacks,feedbacksAdmin)
 admin.site.register(transactions,transactionsAdmin)
 admin.site.register(topdonors,topDonorsAdmin)
+admin.site.register(Donation,DonationAdmin)
