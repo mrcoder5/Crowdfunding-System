@@ -74,3 +74,12 @@ div#regform span, div#regform span {
     right: 0;
 
 }
+.footer-link{
+    color: #fff;
+    text-decoration: none;
+
+}
+.footer-link:hover{
+    color: black;
+    text-decoration: none;
+}

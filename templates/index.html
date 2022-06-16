@@ -106,12 +106,27 @@
         <!-- body section -->
         {% block content %}{% endblock content %}
     </div>
-    <div class="container-fluid ">
-        <!-- footer -->
-        <div class="row mt-5 text-light bg-primary p-2 border-0 rounded d-flex align-content-end ">
-            <div class="row justify-content-center">© 2022 Rahul Shah</div>
-        </div>
-    </div>
+    <div class="container-fluid  mt-5 pt-4 text-light bg-primary bg-gradient  rounded  ">
+      <!-- footer -->
+      <div class="row p-2 d-flex  align-content-end">
+          <div class="col-md-4 px-5 h2"><a href="{%url 'home'%}" class="text-decoration-none text-light">Crowd Funding</a></div>
+          <div class="col-md-2 px-4">
+              <h5 class="">Links</h5>                
+              <ul class="d-flex flex-column list-unstyled   ms-auto ">                
+                  <li class=" mx-1"><a class="navlist footer-link" id="nav"   href="{% url 'home' %}">Home</a></li>
+                  <li class=" mx-1"><a class="navlist footer-link " id="nav"  href="{% url 'donates'%}">Donate Now</a></li>
+                  <li class=" mx-1"><a class="navlist footer-link" id="nav"  href="{% url 'req-donation' %}">Request Donation Post</a></li>
+                  <li class=" mx-1"><a class="navlist footer-link" id="nav"  href="{% url 'contact' %}">Contact Us</a></li>    
+              </ul>
+          </div>
+          <div class="col-md-6"></div>
+      </div>
+      <hr class="border-2 border-top bg-success border-info rounded shadow-sm ">
+      
+      <div class="row p-2 d-flex text-center align-content-end ">
+          <div class="">© 2022 Rahul Shah</div>
+      </div>
+  </div>
     <script src="{% static 'bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'jquery.min.js'%}"></script>
     <script src="{% static 'script.js'%}"></script>
