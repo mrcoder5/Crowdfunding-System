@@ -83,10 +83,12 @@ def login_form(request):
             messages.add_message(request, messages.ERROR, 'Incorrect Username or Password!')
             return redirect('login')
 
-    if request.user.is_authenticated==TRUE:
+    if User.is_authenticated:
+        
         return redirect('home')
     else:
-        return render(request,'login.html',)
+
+        return render(request,'login.html')
 
 #register 
 def register_user(request):

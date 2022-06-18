@@ -6,11 +6,11 @@ body{
     /* margin: 15px 0 0 0; */
     font-family: 'Gill Sans','Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
-
+/* 
 .bgcustom-image{
     background-image: url("/static/images/4.jpg");
     background-size: cover;
-}
+} */
 .top-section{
     height: 80vh;
     padding: 50px 100px;

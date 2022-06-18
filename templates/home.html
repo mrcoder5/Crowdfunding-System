@@ -8,7 +8,7 @@
 
       <!-- new / important donation -->
       <div class="row mt-4">
-            <div class="col-md-12 bgcustom-image top-section ">
+            <div class="col-md-12 bgcustom-image top-section " style="background-image:url('{{lt.image.url}}');background-size:cover;">
               <div class="h3">{{lt.donation_title}} </div><br>
               <div class="medium text-justified">{{lt.donation_description}}</div><br>
               <a href="{% url 'full-donation' lt.slugs lt.id %}" class="btn btn-success align-self-start" >Donate</a>
@@ -44,7 +44,7 @@
                 {% for i in ad%}
                     <div class=" col-md-4 my-2">
                         <div class="card">
-                            <img class="card-img-top" src="{% static '/images/4.jpg' %}" alt="Card image">
+                            <img class="card-img-top" src="{{i.image.url}}" alt="Card image">
                             <div class="card-body">
                                 <h5 class="card-title">{{i.donation_title}}</h5>
                                 <div class="progress" style="height: 5px;">
