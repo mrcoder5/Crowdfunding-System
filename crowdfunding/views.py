@@ -68,6 +68,10 @@ def req_donation_page(request):
         return redirect('register')
 
 
+
+
+
+
 #login
 def login_form(request):
     if request.method=='POST':
@@ -77,13 +81,13 @@ def login_form(request):
         if user is not None:
             login(request,user)
             uname=user.get_username   
-            messages.success(request,'Logged in successfully!')
+            messages.success(request,'Logged in successfully!');
             return redirect('home')
         else:
-            messages.add_message(request, messages.ERROR, 'Incorrect Username or Password!')
-            return redirect('login')
+            messages.error(request,'Incorrect Username or Password!');
+            
 
-    if User.is_authenticated:
+    if User.is_authenticated == True:
         
         return redirect('home')
     else:
@@ -234,6 +238,7 @@ def topdonors_data(request):
         i.pos=p.tag
         j=j+1
     return top_donors
+
 
 # profile page
 def profile(request):

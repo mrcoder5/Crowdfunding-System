@@ -27,7 +27,7 @@ class Donation(models.Model):
     required_amount=models.IntegerField(default=0)
     recieved_amount=models.IntegerField(default=0)
     date_and_time=models.DateTimeField(default=timezone.now)
-    image=models.ImageField(upload_to='images/',null=True)
+    image=models.ImageField(upload_to='',null=True)
     
 
     def max_rec_amt(self):

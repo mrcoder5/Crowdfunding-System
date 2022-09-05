@@ -69,10 +69,10 @@ div#regform span, div#regform span {
 }
 
 .msg{
-    position: absolute;
+    position: fixed;
     bottom: 50px;
     right: 0;
-
+    z-index: 100;
 }
 .footer-link{
     color: #fff;
